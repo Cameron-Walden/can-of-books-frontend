@@ -84,7 +84,7 @@ Again, communication to help the other understand the problem/solution
 
 Name of feature: **Setup Feature 1**
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 
 
 Start time: _____
 
