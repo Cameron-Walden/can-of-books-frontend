@@ -23,9 +23,9 @@ class BestBooks extends React.Component {
     }
   }
 
-  // componentDidMount() {
-  //   this.fetchBooks()
-  // }
+  componentDidMount() {
+    this.fetchBooks();
+  }
 
   async fetchBooks(title) {
     let API = `${SERVER}/books`;
