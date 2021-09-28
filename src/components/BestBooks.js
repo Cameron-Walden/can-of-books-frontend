@@ -38,7 +38,7 @@ class BestBooks extends React.Component {
     try {
       const bookResponse = await axios.get(`${API}`, {params: {searchQuery: title}});
 
-      // console.log(bookResponse, '<---- FETCH BOOKS API LOG TWO ---<<<')
+      // console.log(bookResponse, '<---- What is BOOK RESPONSE ---<<<')
 
       this.setState({
         books: bookResponse.data
@@ -53,8 +53,8 @@ class BestBooks extends React.Component {
 
   handleTitleSubmit = (event) => {
     event.preventDefault();
-    const title = event.target.value;
-    console.log(title, '<---- HANDLE TITLE SUBMIT LOG ---<<<');
+    const title = this.state.searchQuery;
+    // console.log(title, '<---- HANDLE TITLE SUBMIT LOG ---<<<');
     this.fetchBooks(title)
   }
 
@@ -66,8 +66,8 @@ class BestBooks extends React.Component {
     return (
       <>
       <Container>
-        <input onChange={this.handleTitleSubmit} placeholder="search for a book"></input>
-        <Button onClick={this.changeHandler} variant="warning">Fetch Book!</Button>
+        <input onChange={this.changeHandler} placeholder="search for a book"></input>
+        <Button onClick={this.handleTitleSubmit} variant="warning">Fetch Book!</Button>
         {this.state.books &&
         <Carousel>
           <Carousel.Item>
@@ -76,7 +76,7 @@ class BestBooks extends React.Component {
             src="https://image.shutterstock.com/image-illustration/coming-soon-neon-sign-purple-600w-1454233298.jpg"
             alt="placeholder_image"/>
           <Carousel.Caption>
-            <h3>First slide label</h3>
+            <h1>placeholder slide</h1>
             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
           </Carousel.Caption>
           </Carousel.Item>
