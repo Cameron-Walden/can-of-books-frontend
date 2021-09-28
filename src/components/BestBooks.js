@@ -1,15 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import axios from 'axios';
-import { Container } from 'react-bootstrap/Container';
-import { Carousel } from 'react-bootstrap/Carousel';
+import Container from 'react-bootstrap/Container';
+import Carousel from 'react-bootstrap/Carousel';
+import Button from 'react-bootstrap/Button';
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-} from 'react-router-dom';
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link,
+// } from 'react-router-dom';
 
 const SERVER = process.env.REACT_APP_SERVER;
 
@@ -17,7 +18,8 @@ class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [],
+      searchQuery: '',
+      books: null,
     }
   }
 
@@ -25,17 +27,25 @@ class BestBooks extends React.Component {
     this.fetchBooks()
   }
 
-  async fetchBooks(title = null) {
-    const API = `${SERVER}/books`;
+  async fetchBooks(title) {
+    let API = `${SERVER}/books`;
+    console.log(title, '<---- FETCH BOOKS TITLE LOG ---<<<')
+
 
     if(title) {
       API += `?title=${title}`;
     }
     try {
       const bookResponse = await axios.get(API);
+
+      // console.log(bookResponse, '<---- FETCH BOOKS API LOG TWO ---<<<')
+
       this.setState({
         books: bookResponse.data
       });
+
+      // console.log(books, '<---- BOOKS AFTER SET STATE ---<<<')
+
     } catch (error){
       console.log(error, '<---- FETCHBOOKS ERROR LOG ---<<<');
     }
@@ -43,15 +53,21 @@ class BestBooks extends React.Component {
 
   handleTitleSubmit = (event) => {
     event.preventDefault();
-    const title = event.target.title.value;
-    console.log({title}, '<---- HANDLE TITLE SUBMIT LOG ---<<<');
+    const title = event.target.value;
+    // console.log(title, '<---- HANDLE TITLE SUBMIT LOG ---<<<');
     this.fetchBooks(title);
   }
 
+  // changeHandler = (event) => {
+  //   this.setState({searchQuery: event.target.value});
+  //  }
+
   render() {
     return (
+      <>
       <Container>
-        <Router>
+        <input onChange={this.handleTitleSubmit} placeholder="search for a book"></input>
+        <Button onClick={this.handleTitleSubmit} variant="warning">Fetch Book!</Button>
         {this.state.books &&
         <Carousel>
           <Carousel.Item>
@@ -66,10 +82,10 @@ class BestBooks extends React.Component {
           </Carousel.Item>
         </Carousel>
         }
-  
-        {this.state.error && <h3>This Book Collection is Empty</h3>}
-        </Router>
       </Container>
+
+        {this.state.error && <h3>This Book Collection is Empty</h3>}
+      </>
     )
   }
 }
