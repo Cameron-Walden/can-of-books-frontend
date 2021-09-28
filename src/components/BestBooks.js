@@ -23,20 +23,20 @@ class BestBooks extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.fetchBooks()
-  }
+  // componentDidMount() {
+  //   this.fetchBooks()
+  // }
 
   async fetchBooks(title) {
     let API = `${SERVER}/books`;
-    console.log(title, '<---- FETCH BOOKS TITLE LOG ---<<<')
+    // console.log(this.state.searchQuery, '<---- FETCH BOOKS TITLE LOG ---<<<')
 
 
-    if(title) {
-      API += `?title=${title}`;
-    }
+    // if(title) {
+    //   API += `?title=${title}`;
+    // }
     try {
-      const bookResponse = await axios.get(API);
+      const bookResponse = await axios.get(`${API}`, {params: {searchQuery: title}});
 
       // console.log(bookResponse, '<---- FETCH BOOKS API LOG TWO ---<<<')
 
@@ -54,27 +54,27 @@ class BestBooks extends React.Component {
   handleTitleSubmit = (event) => {
     event.preventDefault();
     const title = event.target.value;
-    // console.log(title, '<---- HANDLE TITLE SUBMIT LOG ---<<<');
-    this.fetchBooks(title);
+    console.log(title, '<---- HANDLE TITLE SUBMIT LOG ---<<<');
+    this.fetchBooks(title)
   }
 
-  // changeHandler = (event) => {
-  //   this.setState({searchQuery: event.target.value});
-  //  }
+  changeHandler = (event) => {
+    this.setState({searchQuery: event.target.value});
+   }
 
   render() {
     return (
       <>
       <Container>
         <input onChange={this.handleTitleSubmit} placeholder="search for a book"></input>
-        <Button onClick={this.handleTitleSubmit} variant="warning">Fetch Book!</Button>
+        <Button onClick={this.changeHandler} variant="warning">Fetch Book!</Button>
         {this.state.books &&
         <Carousel>
           <Carousel.Item>
             <img
             className="d-block w-100"
-            src="holder.js/800x400?text=First slide&bg=373940"
-            alt="First slide"/>
+            src="https://image.shutterstock.com/image-illustration/coming-soon-neon-sign-purple-600w-1454233298.jpg"
+            alt="placeholder_image"/>
           <Carousel.Caption>
             <h3>First slide label</h3>
             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
