@@ -36,7 +36,7 @@ class BestBooks extends React.Component {
     //   API += `?title=${title}`;
     // }
     try {
-      const bookResponse = await axios.get(`${API}`, {params: {searchQuery: title}});
+      const bookResponse = await axios.get(`${API}`, {params: {title: title}});
 
       // console.log(bookResponse, '<---- What is BOOK RESPONSE ---<<<')
 
