@@ -6,7 +6,7 @@ import BestBooks from './components/BestBooks.js';
 // import Footer from './components/Footer.js';
 
 function App() {
-  console.log(process.env.REACT_APP_SERVER)
+  // console.log(process.env.REACT_APP_SERVER)
   return (
     <>
     <Header />
