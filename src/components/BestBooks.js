@@ -24,9 +24,9 @@ class BestBooks extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.fetchBooks();
-  }
+  // componentDidMount() {
+  //   this.fetchBooks();
+  // }
 
   // loginHandler = () => {
   //   this.setState({
@@ -43,12 +43,12 @@ class BestBooks extends React.Component {
   async fetchBooks(title) {
     let API = process.env.REACT_APP_SERVER;
     // console.log(this.state.searchQuery, '<---- FETCH BOOKS TITLE LOG ---<<<')
-    console.log(API);
+    console.log(API, '<---- API LOG ---<<<');
     try {
-      const bookResponse = await axios.get(API);
+      const bookResponse = await axios.get(API, {params: {title: title}});
       // const bookResponse = await axios.get('http://localhost:3001/books', {params: {title: title}});
 
-      console.log(bookResponse.data, '<---- What is BOOK RESPONSE ---<<<')
+      console.log(bookResponse, '<---- What is BOOK RESPONSE ---<<<')
 
       this.setState({
         books: bookResponse.data
