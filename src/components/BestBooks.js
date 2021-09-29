@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import axios from 'axios';
-import Container from 'react-bootstrap/Container';
-import Carousel from 'react-bootstrap/Carousel';
+// import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import Books from './Books.js'
 
 // import {
 //   BrowserRouter as Router,
@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button';
 //   Link,
 // } from 'react-router-dom';
 
-const SERVER = process.env.REACT_APP_SERVER;
+// const SERVER = 'http://localhost:3001/books';
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -20,6 +20,7 @@ class BestBooks extends React.Component {
     this.state = {
       searchQuery: '',
       books: null,
+      // user: null,
     }
   }
 
@@ -27,18 +28,27 @@ class BestBooks extends React.Component {
     this.fetchBooks();
   }
 
+  // loginHandler = () => {
+  //   this.setState({
+  //     user: user,
+  //   });
+  // }
+
+  // logoutHandler = () => {
+  //   this.setState({
+  //     user: user,
+  //   });
+  // }
+
   async fetchBooks(title) {
-    let API = `${SERVER}/books`;
+    let API = process.env.REACT_APP_SERVER;
     // console.log(this.state.searchQuery, '<---- FETCH BOOKS TITLE LOG ---<<<')
-
-
-    // if(title) {
-    //   API += `?title=${title}`;
-    // }
+    console.log(API);
     try {
-      const bookResponse = await axios.get(`${API}`, {params: {title: title}});
+      const bookResponse = await axios.get(API);
+      // const bookResponse = await axios.get('http://localhost:3001/books', {params: {title: title}});
 
-      // console.log(bookResponse, '<---- What is BOOK RESPONSE ---<<<')
+      console.log(bookResponse.data, '<---- What is BOOK RESPONSE ---<<<')
 
       this.setState({
         books: bookResponse.data
@@ -54,8 +64,8 @@ class BestBooks extends React.Component {
   handleTitleSubmit = (event) => {
     event.preventDefault();
     const title = this.state.searchQuery;
-    // console.log(title, '<---- HANDLE TITLE SUBMIT LOG ---<<<');
-    this.fetchBooks(title)
+    console.log(title, '<---- HANDLE TITLE SUBMIT LOG ---<<<');
+    this.fetchBooks(title);
   }
 
   changeHandler = (event) => {
@@ -65,26 +75,12 @@ class BestBooks extends React.Component {
   render() {
     return (
       <>
-      <Container>
         <input onChange={this.changeHandler} placeholder="search for a book"></input>
         <Button onClick={this.handleTitleSubmit} variant="warning">Fetch Book!</Button>
         {this.state.books &&
-        <Carousel>
-          <Carousel.Item>
-            <img
-            className="d-block w-100"
-            src="https://image.shutterstock.com/image-illustration/coming-soon-neon-sign-purple-600w-1454233298.jpg"
-            alt="placeholder_image"/>
-          <Carousel.Caption>
-            <h1>placeholder slide</h1>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
+          <Books bookArray={this.state.books}/>
         }
-      </Container>
-
-        {this.state.error && <h3>This Book Collection is Empty</h3>}
+      {this.state.error && <h3>This Book Collection is Empty</h3>}
       </>
     )
   }
