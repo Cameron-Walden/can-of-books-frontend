@@ -3,7 +3,8 @@ import React from 'react';
 import axios from 'axios';
 // import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-import Books from './Books.js'
+import Books from './Books.js';
+import CreateBook from './CreateBook';
 
 // import {
 //   BrowserRouter as Router,
@@ -72,11 +73,18 @@ class BestBooks extends React.Component {
     this.setState({searchQuery: event.target.value});
    }
 
+   handleCreate = async (bookInfo) => {
+    const newBookResponse = await axios.post(process.env.REACT_APP_SERVER, bookInfo);
+    console.log(newBookResponse, '<---- NEW BOOK RESPONSE ---<<<')
+    this.fetchBooks();
+  };
+
   render() {
     return (
       <>
         <input onChange={this.changeHandler} placeholder="search for a book"></input>
         <Button onClick={this.handleTitleSubmit} variant="warning">Fetch Book!</Button>
+        <CreateBook onCreate={this.handleCreate}/>
         {this.state.books &&
           <Books bookArray={this.state.books}/>
         }
