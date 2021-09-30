@@ -10,7 +10,7 @@ function App() {
   return (
     <>
     <Header />
-    <h3>placeholder</h3>
+    <h3>Welcome to BestBooks</h3>
     <BestBooks />
     </>
   );

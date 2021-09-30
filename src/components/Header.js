@@ -18,7 +18,7 @@ function Header() {
         <Form.Control placeholder="Username" />
       </Col>
       <Col>
-        <Form.Control placeholder="Password" />
+        <Form.Control placeholder="Email" />
       </Col>
       </Row>
       <Button variant="primary" type="submit">Submit</Button>

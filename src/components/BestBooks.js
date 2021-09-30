@@ -87,8 +87,8 @@ class BestBooks extends React.Component {
   render() {
     return (
       <>
-        <input onChange={this.changeHandler} placeholder="search for a book"></input>
-        <input onChange={this.emailHandler} placeholder="search for your email"></input>
+        <input onChange={this.changeHandler} placeholder="search books by title"></input>
+        <input onChange={this.emailHandler} placeholder="search books by email"></input>
         <Button onClick={this.handleTitleSubmit} variant="warning">Fetch Book!</Button>
         <CreateBook onCreate={this.handleCreate}/>
         {this.state.books &&
