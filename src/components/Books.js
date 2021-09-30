@@ -2,15 +2,16 @@ import React from 'react';
 import axios from 'axios';
 // import Carousel from 'react-bootstrap/Carousel';
 import Container from 'react-bootstrap/Container';
-// import BurnBook from './BurnBook';
+import BurnBook from './BurnBook';
 
 
 
 class Books extends React.Component {
     handleBurn = async (id, email) => {
-        id = this.state.books._id;
-        email = this.state.books.email
-        await axios.delete(process.env.REACT_APP_SERVER, id, email)
+        console.log('ID EQUALS --->', id, 'EMAIL EQUALS --->', email)
+        // id = this.state.books._id;
+        // email = this.state.books.email
+        // await axios.delete(process.env.REACT_APP_SERVER, id, email)
       }
 
     render(){
@@ -22,7 +23,7 @@ class Books extends React.Component {
                 <Container key = {index} rounded="true" fluid = "true">
                 <h1>{book.title}</h1>
             <p>{book.description}</p>
-            {/* <BurnBook onClick={this.handleBurn} bookID={book._id} /> */}
+            <BurnBook onDelete={this.handleBurn} bookID={book._id} />
             </Container>
             ))}
             </>
