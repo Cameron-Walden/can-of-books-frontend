@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import axios from 'axios';
-// import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Books from './Books.js';
 import CreateBook from './CreateBook';
@@ -22,20 +21,11 @@ class BestBooks extends React.Component {
 
   async fetchBooks(title, email) {
     let API = process.env.REACT_APP_SERVER;
-    // console.log(this.state.searchQuery, '<---- FETCH BOOKS TITLE LOG ---<<<')
-    console.log(API, '<---- API LOG ---<<<');
     try {
       const bookResponse = await axios.get(API, {params: {title: title, email: email}});
-      // const bookResponse = await axios.get('http://localhost:3001/books', {params: {title: title}});
-
-      console.log(bookResponse, '<---- What is BOOK RESPONSE ---<<<')
-
       this.setState({
         books: bookResponse.data
       });
-
-      // console.log(books, '<---- BOOKS AFTER SET STATE ---<<<')
-
     } catch (error){
       console.log(error, '<---- FETCHBOOKS ERROR LOG ---<<<');
     }
@@ -45,7 +35,6 @@ class BestBooks extends React.Component {
     event.preventDefault();
     const title = this.state.searchQuery;
     const email = this.state.email;
-    console.log(title, '<---- HANDLE TITLE SUBMIT LOG ---<<<');
     this.fetchBooks(title, email);
   }
 
@@ -58,8 +47,7 @@ class BestBooks extends React.Component {
   }
 
    handleCreate = async (bookInfo) => {
-    const newBookResponse = await axios.post(process.env.REACT_APP_SERVER, bookInfo);
-    console.log(newBookResponse, '<---- NEW BOOK RESPONSE ---<<<')
+    await axios.post(process.env.REACT_APP_SERVER, bookInfo);
     this.fetchBooks();
   };
 
@@ -70,7 +58,9 @@ class BestBooks extends React.Component {
         <input onChange={this.emailHandler} placeholder="search books by email" rounded="true" fluid="true" ></input>
         <h6>leave <em>both</em> fields blank to see all books!</h6>
         <Button onClick={this.handleTitleSubmit} variant="warning">Fetch Book!</Button>
+
         <CreateBook onCreate={this.handleCreate}/>
+
         {this.state.books &&
           <Books bookArray={this.state.books}/>
         }
