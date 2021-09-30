@@ -6,7 +6,7 @@ export default class BurnBook extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.onDelete({
-      id: this.props.bookID,
+      id: this.props.book,
       email: event.target.formEmail.value,
     })
 

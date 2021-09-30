@@ -7,23 +7,20 @@ import BurnBook from './BurnBook';
 
 
 class Books extends React.Component {
-    handleBurn = async (id, email) => {
-        console.log('ID EQUALS --->', id, 'EMAIL EQUALS --->', email)
-        // id = this.state.books._id;
-        // email = this.state.books.email
-        // await axios.delete(process.env.REACT_APP_SERVER, id, email)
+    handleBurn = async (book) => {
+        console.log(book, '<---- BOOK TO BE BURNED ---<<<')
+        await axios.delete(process.env.REACT_APP_SERVER, book)
       }
 
     render(){
         const books = this.props.bookArray
-        console.log(books[0]._id);
         return(
             <>
             {books.map((book, index) => (
                 <Container key = {index} rounded="true" fluid = "true">
                 <h1>{book.title}</h1>
             <p>{book.description}</p>
-            <BurnBook onDelete={this.handleBurn} bookID={book._id} />
+            <BurnBook onDelete={this.handleBurn} book={book._id} />
             </Container>
             ))}
             </>
