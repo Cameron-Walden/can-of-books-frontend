@@ -15,10 +15,10 @@ function Header() {
       <Form>
       <Row>
       <Col>
-        <Form.Control placeholder="Username" />
+        <Form.Control placeholder="Username" rounded="true" fluid="true" />
       </Col>
       <Col>
-        <Form.Control placeholder="Email" />
+        <Form.Control placeholder="Email" rounded="true" fluid="true" />
       </Col>
       </Row>
       <Button variant="primary" type="submit">Submit</Button>

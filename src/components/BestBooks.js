@@ -6,15 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Books from './Books.js';
 import CreateBook from './CreateBook';
 
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link,
-// } from 'react-router-dom';
-
-// const SERVER = 'http://localhost:3001/books';
-
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
@@ -25,21 +16,9 @@ class BestBooks extends React.Component {
     }
   }
 
-  // componentDidMount() {
-  //   this.fetchBooks();
-  // }
-
-  // loginHandler = () => {
-  //   this.setState({
-  //     user: user,
-  //   });
-  // }
-
-  // logoutHandler = () => {
-  //   this.setState({
-  //     user: user,
-  //   });
-  // }
+  componentDidMount() {
+    this.fetchBooks();
+  }
 
   async fetchBooks(title, email) {
     let API = process.env.REACT_APP_SERVER;
@@ -87,8 +66,9 @@ class BestBooks extends React.Component {
   render() {
     return (
       <>
-        <input onChange={this.changeHandler} placeholder="search books by title"></input>
-        <input onChange={this.emailHandler} placeholder="search books by email"></input>
+        <input onChange={this.changeHandler} placeholder="search books by title" rounded="true" fluid="true" ></input>
+        <input onChange={this.emailHandler} placeholder="search books by email" rounded="true" fluid="true" ></input>
+        <h6>leave <em>both</em> fields blank to see all books!</h6>
         <Button onClick={this.handleTitleSubmit} variant="warning">Fetch Book!</Button>
         <CreateBook onCreate={this.handleCreate}/>
         {this.state.books &&
