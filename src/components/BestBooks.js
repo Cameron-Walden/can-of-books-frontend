@@ -21,7 +21,7 @@ class BestBooks extends React.Component {
     this.state = {
       searchQuery: '',
       books: null,
-      // user: null,
+      email: '',
     }
   }
 
@@ -41,12 +41,12 @@ class BestBooks extends React.Component {
   //   });
   // }
 
-  async fetchBooks(title) {
+  async fetchBooks(title, email) {
     let API = process.env.REACT_APP_SERVER;
     // console.log(this.state.searchQuery, '<---- FETCH BOOKS TITLE LOG ---<<<')
     console.log(API, '<---- API LOG ---<<<');
     try {
-      const bookResponse = await axios.get(API, {params: {title: title}});
+      const bookResponse = await axios.get(API, {params: {title: title, email: email}});
       // const bookResponse = await axios.get('http://localhost:3001/books', {params: {title: title}});
 
       console.log(bookResponse, '<---- What is BOOK RESPONSE ---<<<')
@@ -65,13 +65,18 @@ class BestBooks extends React.Component {
   handleTitleSubmit = (event) => {
     event.preventDefault();
     const title = this.state.searchQuery;
+    const email = this.state.email;
     console.log(title, '<---- HANDLE TITLE SUBMIT LOG ---<<<');
-    this.fetchBooks(title);
+    this.fetchBooks(title, email);
   }
 
   changeHandler = (event) => {
     this.setState({searchQuery: event.target.value});
    }
+
+  emailHandler = (event) => {
+    this.setState({email: event.target.value})
+  }
 
    handleCreate = async (bookInfo) => {
     const newBookResponse = await axios.post(process.env.REACT_APP_SERVER, bookInfo);
@@ -83,6 +88,7 @@ class BestBooks extends React.Component {
     return (
       <>
         <input onChange={this.changeHandler} placeholder="search for a book"></input>
+        <input onChange={this.emailHandler} placeholder="search for your email"></input>
         <Button onClick={this.handleTitleSubmit} variant="warning">Fetch Book!</Button>
         <CreateBook onCreate={this.handleCreate}/>
         {this.state.books &&
