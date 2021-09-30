@@ -4,6 +4,7 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Books from './Books.js';
 import CreateBook from './CreateBook';
+import BurnBook from './BurnBook';
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -12,11 +13,12 @@ class BestBooks extends React.Component {
       searchQuery: '',
       books: null,
       email: '',
+      user: null,
     }
   }
 
   componentDidMount() {
-    this.fetchBooks();
+    this.fetchBooks('', '');
   }
 
   async fetchBooks(title, email) {
@@ -40,16 +42,20 @@ class BestBooks extends React.Component {
 
   changeHandler = (event) => {
     this.setState({searchQuery: event.target.value});
-   }
+  }
 
   emailHandler = (event) => {
     this.setState({email: event.target.value})
   }
 
-   handleCreate = async (bookInfo) => {
+  handleCreate = async (bookInfo) => {
     await axios.post(process.env.REACT_APP_SERVER, bookInfo);
     this.fetchBooks();
   };
+
+  loginHandler = (user) => {
+    this.setState({user})
+    }
 
   render() {
     return (
