@@ -8,8 +8,8 @@ import BurnBook from './BurnBook';
 
 class Books extends React.Component {
     handleBurn = async (book) => {
-        console.log(book, '<---- BOOK TO BE BURNED ---<<<')
-        await axios.delete(process.env.REACT_APP_SERVER, book)
+        console.log(process.env.REACT_APP_SERVER + '/' + book.id, '<---- WHAT CLIENTS SENDS TO SERVER ---<<<')
+        await axios.delete(process.env.REACT_APP_SERVER + '/' + book.id)
       }
 
     render(){
