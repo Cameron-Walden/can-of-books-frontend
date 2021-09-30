@@ -1,18 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import axios from 'axios';
-// import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-import Books from './Books.js'
-
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link,
-// } from 'react-router-dom';
-
-// const SERVER = 'http://localhost:3001/books';
+import Books from './Books.js';
+import CreateBook from './CreateBook';
+import BurnBook from './BurnBook';
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -20,42 +12,22 @@ class BestBooks extends React.Component {
     this.state = {
       searchQuery: '',
       books: null,
-      // user: null,
+      email: '',
+      user: null,
     }
   }
 
-  // componentDidMount() {
-  //   this.fetchBooks();
-  // }
+  componentDidMount() {
+    this.fetchBooks('', '');
+  }
 
-  // loginHandler = () => {
-  //   this.setState({
-  //     user: user,
-  //   });
-  // }
-
-  // logoutHandler = () => {
-  //   this.setState({
-  //     user: user,
-  //   });
-  // }
-
-  async fetchBooks(title) {
+  async fetchBooks(title, email) {
     let API = process.env.REACT_APP_SERVER;
-    // console.log(this.state.searchQuery, '<---- FETCH BOOKS TITLE LOG ---<<<')
-    console.log(API, '<---- API LOG ---<<<');
     try {
-      const bookResponse = await axios.get(API, {params: {title: title}});
-      // const bookResponse = await axios.get('http://localhost:3001/books', {params: {title: title}});
-
-      console.log(bookResponse, '<---- What is BOOK RESPONSE ---<<<')
-
+      const bookResponse = await axios.get(API, {params: {title: title, email: email}});
       this.setState({
         books: bookResponse.data
       });
-
-      // console.log(books, '<---- BOOKS AFTER SET STATE ---<<<')
-
     } catch (error){
       console.log(error, '<---- FETCHBOOKS ERROR LOG ---<<<');
     }
@@ -64,19 +36,37 @@ class BestBooks extends React.Component {
   handleTitleSubmit = (event) => {
     event.preventDefault();
     const title = this.state.searchQuery;
-    console.log(title, '<---- HANDLE TITLE SUBMIT LOG ---<<<');
-    this.fetchBooks(title);
+    const email = this.state.email;
+    this.fetchBooks(title, email);
   }
 
   changeHandler = (event) => {
     this.setState({searchQuery: event.target.value});
-   }
+  }
+
+  emailHandler = (event) => {
+    this.setState({email: event.target.value})
+  }
+
+  handleCreate = async (bookInfo) => {
+    await axios.post(process.env.REACT_APP_SERVER, bookInfo);
+    this.fetchBooks();
+  };
+
+  loginHandler = (user) => {
+    this.setState({user})
+    }
 
   render() {
     return (
       <>
-        <input onChange={this.changeHandler} placeholder="search for a book"></input>
+        <input onChange={this.changeHandler} placeholder="search books by title" rounded="true" fluid="true" ></input>
+        <input onChange={this.emailHandler} placeholder="search books by email" rounded="true" fluid="true" ></input>
+        <h6>leave <em>both</em> fields blank to see all books!</h6>
         <Button onClick={this.handleTitleSubmit} variant="warning">Fetch Book!</Button>
+
+        <CreateBook onCreate={this.handleCreate}/>
+
         {this.state.books &&
           <Books bookArray={this.state.books}/>
         }

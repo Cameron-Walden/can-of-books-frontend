@@ -5,7 +5,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-
 function Header() {
  
     return (
@@ -15,13 +14,12 @@ function Header() {
       <Form>
       <Row>
       <Col>
-        <Form.Control placeholder="Username" />
+        <Form.Control placeholder="Username" rounded="true" fluid="true" />
       </Col>
       <Col>
-        <Form.Control placeholder="Password" />
+        <Form.Control placeholder="Email" rounded="true" fluid="true" />
       </Col>
       </Row>
-      <Button variant="primary" type="submit">Submit</Button>
       </Form>
       </>
       )
