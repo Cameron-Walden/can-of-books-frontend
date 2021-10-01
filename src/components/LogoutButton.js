@@ -3,8 +3,9 @@ import Button from 'react-bootstrap/Button';
 
 class LogoutButton extends React.Component {
   render() {
+    console.log(this.props.logout, '<---- LOG OUT BUTTON DOT PROPS INFO ---<<<')
     return (
-      <Button onClick={this.logout}>Log Out</Button>
+      <Button onClick={this.props.logout}>Log Out</Button>
     )
   }
 }

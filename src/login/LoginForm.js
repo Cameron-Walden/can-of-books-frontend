@@ -16,7 +16,6 @@ class LoginForm extends React.Component {
     }
 
     render() {
-        console.log(this.props.createUser, '<---- LOGIN FORM DOT PROPS LOG ---<<<')
         return (
             <>
                 <Form onSubmit={this.handleSubmit}>

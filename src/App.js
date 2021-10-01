@@ -4,6 +4,7 @@ import './App.css';
 import Login from './login/Login.js';
 import LoginForm from './login/LoginForm.js';
 import BestBooks from './components/BestBooks.js';
+import Header from './components/Header.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,16 +21,24 @@ class App extends React.Component {
     })
   }
 
-  handleCreateUserButton = (user) => {
+  handleLogOutButton = () => {
     this.setState({
-      user: user,
+      isLoggedIn: false,
+    })
+  }
+
+  handleCreateUserButton = (userInfo) => {
+    this.setState({
+      user: userInfo,
     })
   }
 
   render() {
+    console.log(this.state.isLoggedIn, '<---- AM I LOGGED IN? ---<<<')
     return (
       <>
-      {this.state.user &&
+      <Header logout={this.handleLogOutButton} />
+      {this.state.isLoggedIn && this.state.user &&
       <BestBooks />
       }
       {!this.state.user && this.state.isLoggedIn &&

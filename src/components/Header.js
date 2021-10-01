@@ -1,27 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import LogoutButton from './login/LoginButton.js';
+import LogoutButton from './LogoutButton.js';
 
-class Header extends React.Component () {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoggedIn: false,
-    }
-  }
-
-  handleLogOutButton = () => {
-    this.setState({
-      isLoggedIn: false,
-    })
-  }
-
+class Header extends React.Component {
   render() {
+    const logout = this.props.logout;
     return (
       <>
-      {this.state.isLoggedIn &&
-      <LogoutButton logout={this.handleLogOutButton} variant="dark" type="submit" />
-      }
+      <LogoutButton logout={logout} />
       </>
     )
   }
