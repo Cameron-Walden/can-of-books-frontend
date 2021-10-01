@@ -37,7 +37,7 @@ class App extends React.Component {
     console.log(this.state.isLoggedIn, '<---- AM I LOGGED IN? ---<<<')
     return (
       <>
-      <Header logout={this.handleLogOutButton} />
+      <Header logout={this.handleLogOutButton} user={this.state.user} />
       {this.state.isLoggedIn && this.state.user &&
       <BestBooks />
       }
