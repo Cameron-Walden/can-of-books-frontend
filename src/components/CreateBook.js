@@ -11,7 +11,6 @@ export default class CreateBook extends Component {
       status: event.target.formStatus.value,
       email: event.target.formEmail.value,
     })
-
   }
 
   render() {
@@ -35,7 +34,7 @@ export default class CreateBook extends Component {
 
         <Form.Group className="mb-3" controlId="formEmail">
           <Form.Label>Email</Form.Label>
-          <Form.Control type="name" placeholder="Enter Your Email" rounded="true" fluid="true" />
+          <Form.Control type="name" placeholder="Enter Your Email" />
         </Form.Group>
 
         <Button variant="primary" type="submit">

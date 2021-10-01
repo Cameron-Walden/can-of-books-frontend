@@ -1,28 +1,30 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+import LogoutButton from './login/LoginButton.js';
 
-function Header() {
- 
+class Header extends React.Component () {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedIn: false,
+    }
+  }
+
+  handleLogOutButton = () => {
+    this.setState({
+      isLoggedIn: false,
+    })
+  }
+
+  render() {
     return (
       <>
-      <Button variant="dark" type="submit">Logout</Button>
-      <h3>Profile Information:</h3>
-      <Form>
-      <Row>
-      <Col>
-        <Form.Control placeholder="Username" rounded="true" fluid="true" />
-      </Col>
-      <Col>
-        <Form.Control placeholder="Email" rounded="true" fluid="true" />
-      </Col>
-      </Row>
-      </Form>
+      {this.state.isLoggedIn &&
+      <LogoutButton logout={this.handleLogOutButton} variant="dark" type="submit" />
+      }
       </>
-      )
+    )
   }
+}
 
 export default Header;
