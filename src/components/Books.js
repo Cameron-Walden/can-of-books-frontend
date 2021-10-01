@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Carousel from 'react-bootstrap/Carousel';
 import BurnBook from './BurnBook';
+import UpdateBook from './UpdateBook.js';
 
 class Books extends React.Component {
     handleBurn = async (book) => {
@@ -10,7 +11,7 @@ class Books extends React.Component {
     }
 
     render() {
-        const books = this.props.bookArray
+        const books = this.props.bookArray;
         return (
             <>
                 <Carousel>
@@ -26,6 +27,7 @@ class Books extends React.Component {
                             <Carousel.Caption>
                                 <h1>{book.title}</h1>
                                 <p>{book.description}</p>
+                                <UpdateBook onUpdate={this.props.handleUpdate} book={book._id} />
                                 <BurnBook onDelete={this.handleBurn} book={book._id} />
                             </Carousel.Caption>
                         </Carousel.Item>))}

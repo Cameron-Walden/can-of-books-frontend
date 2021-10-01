@@ -51,6 +51,11 @@ class BestBooks extends React.Component {
     this.fetchBooks();
   };
 
+  handleUpdate = async (updatedInfo) => {
+    await axios.put(process.env.REACT_APP_SERVER + '/' + updatedInfo);
+    this.fetchBook();
+  };
+
   render() {
     return (
       <>
@@ -62,7 +67,7 @@ class BestBooks extends React.Component {
         <CreateBook onCreate={this.handleCreate}/>
 
         {this.state.books &&
-          <Books bookArray={this.state.books}/>
+          <Books bookArray={this.state.books} handleUpdate={this.handleUpdate} />
         }
       {this.state.error && <h3>This Book Collection is Empty</h3>}
       </>
