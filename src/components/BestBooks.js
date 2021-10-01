@@ -4,7 +4,6 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Books from './Books.js';
 import CreateBook from './CreateBook';
-import BurnBook from './BurnBook';
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -13,7 +12,6 @@ class BestBooks extends React.Component {
       searchQuery: '',
       books: null,
       email: '',
-      user: null,
     }
   }
 
@@ -53,9 +51,10 @@ class BestBooks extends React.Component {
     this.fetchBooks();
   };
 
-  loginHandler = (user) => {
-    this.setState({user})
-    }
+  handleUpdate = async (updatedInfo) => {
+    await axios.put(process.env.REACT_APP_SERVER + '/' + updatedInfo);
+    this.fetchBook();
+  };
 
   render() {
     return (
@@ -68,7 +67,7 @@ class BestBooks extends React.Component {
         <CreateBook onCreate={this.handleCreate}/>
 
         {this.state.books &&
-          <Books bookArray={this.state.books}/>
+          <Books bookArray={this.state.books} handleUpdate={this.handleUpdate} />
         }
       {this.state.error && <h3>This Book Collection is Empty</h3>}
       </>
