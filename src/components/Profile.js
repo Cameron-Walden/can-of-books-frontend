@@ -1,11 +1,4 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 
 class Profile extends React.Component {
   render() {
