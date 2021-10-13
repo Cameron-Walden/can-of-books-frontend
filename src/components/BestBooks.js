@@ -27,7 +27,7 @@ class BestBooks extends React.Component {
         books: bookResponse.data
       });
     } catch (error){
-      console.log(error, '<---- FETCHBOOKS ERROR LOG ---<<<');
+      console.log(error, '<---- FETCH BOOKS ERROR ---<<<');
     }
   }
 
